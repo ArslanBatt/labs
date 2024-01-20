@@ -47,7 +47,8 @@ body{
 </div>
 <div class="body">
 <div class="date">
-        <p>Таймер: </p>
+        <p id="timer">00:00:00
+        </p>
         <?php print(date( "l dS of F Y h:i:s A" )); ?>
 </div>
 <div class="task-text">
@@ -75,5 +76,38 @@ body{
     </form>
 </div>
 </div>
+<script>
+let interval;
+
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
+function startTimer() {
+interval = setInterval(updateTimer, 1000);
+}
+function stopTimer() {
+clearInterval(interval);
+}
+
+function updateTimer() {
+seconds++;
+if (seconds >= 60) {
+seconds = 0;
+minutes++;
+if (minutes >= 60) {
+minutes = 0;
+hours++;
+}
+}
+
+document.getElementById("timer").innerText =
+(hours < 10 ? "0" + hours : hours) + ":" +
+(minutes < 10 ? "0" + minutes : minutes) + ":" +
+(seconds < 10 ? "0" + seconds : seconds);
+}
+
+startTimer(); // Автоматически запустить таймер при загрузке страницы
+</script>
 </body>
 </html>
