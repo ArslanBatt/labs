@@ -188,16 +188,18 @@ function getRandomText() {
     return $texts[$randomIndex]; // Возвращаем случайный текст
 }
 function randomRussianLetter() {
-    $letters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-    $randomIndex = rand(0, mb_strlen($letters, 'utf-8') - 1);
-    return mb_substr($letters, $randomIndex, 1, 'utf-8');
+    $Arrletters = array('а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я');
+    $randomIndex = mt_rand(0,32);
+    $letters = $Arrletters [$randomIndex];
+    return $letters;
 }
+
 for($i=0;$i<4;$i++){   
     switch($_GET['task']){   
         case 2:   
             $var5 = randomRussianLetter();   
             $var6 = getRandomText();
-            $count = mb_substr_count($var6, $var5, 'utf-8');
+            $count = mb_substr_count($var6, $var5);
             echo "<p>Напишите количество вхождений символа '$var5' в следующем тексте. В ответ записать число вхождений. <br> $var6</p>";   
             echo "<input type='hidden' value='" . mb_substr_count($var6, $var5, 'utf-8') . "' id='ans$i'>";
             echo "<label>Ответ:</label><input type='number' id='ans_user$i'>";

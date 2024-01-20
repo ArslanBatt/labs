@@ -70,7 +70,7 @@ body{
         <div class="submit">
         </div>
         <div class="submit">
-            <label for=""><input class="inputss" type="button" value="Пример решения"></label>
+            <label for=""><input class="inputss" type="button" id="refreshButton" onclick="location.reload()" value="Пример решения"></label>
             <label for=""><input class="inputss" type="submit"></label>
         </div>
     </form>
