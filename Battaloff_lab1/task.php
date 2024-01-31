@@ -98,7 +98,7 @@ for($i=0;$i<4;$i++){
         echo "<p>Необходимо перевести значение $var1 из 2 сисемы счисления в 10 систему счисления. В качестве ответа указать число.</p>";
         echo "<input type='hidden' value='" . get_answer($var1) . "' id='ans$i'>";
         echo "<label>Ответ:</label><input type='number' id='ans_user$i'>";
-        echo "<p id='val$i'></p><hr>";
+        echo "<p id='val$i'></p>";
         break;
     }
 }
@@ -131,7 +131,7 @@ for($i=0; $i<4; $i++){
             echo "<p>Какой минимальный объём памяти (в Кбайт) нужно зарезервировать, чтобы можно было сохранить любое растровое изображение размером $var2 × $var3 пикселей при условии, что в изображении могут использоваться $var4 различных цветов? В ответе запишите только целое число, единицу измерения писать не нужно.</p>"; 
             echo "<input type='hidden' value='" . calculateMemorySize($var2, $var3, $var4) . "' id='ans$i'>";
             echo "<label>Ответ:</label><input type='number' id='ans_user$i'>";
-            echo "<p id='val$i'></p><hr>";
+            echo "<p id='val$i'></p>";
             break; 
     } 
 }
@@ -201,9 +201,9 @@ for($i=0;$i<4;$i++){
             $var6 = getRandomText();
             $count = mb_substr_count($var6, $var5);
             echo "<p>Напишите количество вхождений символа '$var5' в следующем тексте. В ответ записать число вхождений. <br> $var6</p>";   
-            echo "<input type='hidden' value='" . mb_substr_count($var6, $var5, 'utf-8') . "' id='ans$i'>";
+            echo "<input type='hidden' value='" . mb_substr_count($var6, $var5) . "' id='ans$i'>";
             echo "<label>Ответ:</label><input type='number' id='ans_user$i'>";
-            echo "<p id='val$i'></p><hr>";
+            echo "<p id='val$i'></p>";
             break;   
     }   
 }
