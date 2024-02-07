@@ -6,6 +6,7 @@ $query_get_category = "select * from categories";
 $categories = mysqli_fetch_all(mysqli_query($con, $query_get_category));
 $news = mysqli_query($con, "select * from news");
 //
+
 ?>
 <!DOCTYPE html> 
 <html> 
@@ -34,7 +35,7 @@ $news = mysqli_query($con, "select * from news");
         </div> 
 
         <div class="Pinguins-and-date-and-temp">
-            <h1 class="namePost1">Пингвины</h1> 
+            <a href="index.php" class="namePost1">Пингвины</a> 
             <div class="date-and-temp">
                 <p>Понедельник, Январь 1, 2018</p>
                 <div class="temp-content">
@@ -47,8 +48,8 @@ $news = mysqli_query($con, "select * from news");
             
     <main> 
     <div class="text-main"> 
-        <?php foreach($categories as $category){ 
-            echo "<li><a href='#'>$category[1]</a></li>"; 
+        <?php foreach($categories as $category){
+            echo "<li><a href='/?new=" . $category[0] . "'>$category[1]</a></li>"; 
             } 
         ?> 
     </div> 

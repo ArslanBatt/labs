@@ -32,17 +32,22 @@ if($id_new) $new_info = mysqli_fetch_assoc(mysqli_query($con, "select * from new
     <h2>Список новостей:</h2>
     <?php 
         foreach($news as $new){ 
-            echo "<li><a href='?new=" . $new[0] ."'>" . $new[1] ."</a></li>"; 
+            echo "<li><a href='?new=" . $new[0] ."'>" . $new[1] ."</a>
+            <a href='deleteNew.php?new=" . $new[0] . "'><img style= 'width: 20px; height: 20px' src='/images/icons/trash.png'>
+            </a></li>"; 
             echo "<hr>";
         } 
     ?> 
-    <a href="/admin"><img style="width: 30px; height: 30px" src="../images/icons/plus.png" alt="Добавить новость"><?=$id_new?"":"";?></a>
+    <a href="index.php"><img style="width: 30px; height: 30px" src="../images/icons/plus.png" alt="Добавить новость"><?=$id_new?"":"";?></a>
     </div>
     <div class="containers2">
     <h2 style="text-align:center;"><?=$id_new?"Редактирование новости №$id_new":"Создание новости";?></h2>
-    <form style="padding-top: 0;" action='<?=$id_new?"/update":"/create";?>NewValid.php' method="post" enctype="multipart/form-data">  
+    <form style="padding-top: 0;" action='<?=$id_new?"update":"create";?>NewValid.php' method="post" enctype="multipart/form-data">  
     
-<?= "<div class='post_img' style='background-image:url(/images/news/" . (isset($new_info['image']) ? $new_info['image'] : '') . ")'></div>";?>      
+<?= "<div class='post_img' style='background-image:url(../images/news/" . (isset($new_info['image']) ? $new_info['image'] : '') . ")'></div>";?>      
+
+<?= $id_new ?  "<input type='hidden' name='id' value='$id_new'>":"";?>      
+
     <label  for="category">Выберите категорию:</label>  
             <select id="category" name="category">  
                 <?php 
@@ -65,7 +70,6 @@ if($id_new) $new_info = mysqli_fetch_assoc(mysqli_query($con, "select * from new
             <label for="image">Изображение:</label>  
             <input type="file" id="image" name="image" accept="image/*" class="submit-button-img"> 
             <input type="submit" value="Отправить" class="submit-button">
-
         </form>
         </div>
     </body> 
