@@ -2,11 +2,17 @@
 include "connect.php";
 include "header.php";
 
+$cat = isset($_GET["new"])?$_GET["new"]:false;
+
 $query_get_category = "select * from categories"; 
-
 $categories = mysqli_fetch_all(mysqli_query($con, $query_get_category));
+if($cat == false) {
+    $news = mysqli_query($con, "select * from news");
+} else {
+    $news = mysqli_query($con, "select * from news where category_id=$cat");
+}
 
-$news = mysqli_query($con, "select * from news");
+
 
 ?> 
 
