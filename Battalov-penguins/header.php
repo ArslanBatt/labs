@@ -9,6 +9,15 @@ $categories = mysqli_fetch_all(mysqli_query($con, $query_get_category));
 $news = mysqli_query($con, "select * from news");
 session_start();
 $username = isset($_SESSION["user_id"]) ? mysqli_fetch_assoc(mysqli_query($con, 'select name from users where user_id =' . $_SESSION["user_id"]))["name"] : false;
+
+
+$search = isset($_GET["search"]) ? $_GET["search"] : false;
+if ($search) {
+    $query = "SELECT * FROM news WHERE title LIKE '%$search%'";
+    $news = mysqli_query($con, $query);
+}
+$news = mysqli_query($con, "select * from news");
+
 ?>
 <!DOCTYPE html> 
 <html> 
@@ -28,7 +37,9 @@ $username = isset($_SESSION["user_id"]) ? mysqli_fetch_assoc(mysqli_query($con, 
                     <img src="images/Hamburger menu.png" alt="">
                     <h2>Разделы</h2>   
                 </div>
-                <input type="text" placeholder="Поиск" class="poisk">
+                <form id="search-form" action="/" method="get"> 
+                            <input class="poisk" type="search" id='search' name="search" placeholder="Поиск"> 
+                        </form>
                 <div class="vhod">
                 <?php if ($username) { ?>
                     <a href="/page.php" class="pers-name"><?= $username ?></a>
@@ -60,3 +71,10 @@ $username = isset($_SESSION["user_id"]) ? mysqli_fetch_assoc(mysqli_query($con, 
         ?> 
     </div> 
 </main>
+<script>  
+        $('#search-form').on ('keyup', function (e) {  
+            <?php   
+                $searching = isset($_GET['search'])? $_GET['search']: false;   
+                ?>  
+        });
+    </script>

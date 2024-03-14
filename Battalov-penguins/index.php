@@ -1,22 +1,20 @@
-<?php  
-include "connect.php";  
-include "header.php";  
+<?php
+include "connect.php";
+include "header.php";
 
-$cat = isset($_GET["new"]) ? $_GET["new"] : false; 
-$sort = isset($_GET["sort"]) ? $_GET["sort"] : "DESC"; // По умолчанию сортировка по убыванию 
-$query_get_category = "select * from categories";   
-$categories = mysqli_fetch_all(mysqli_query($con, $query_get_category));  
-$count_news = mysqli_num_rows($news); // Получите общее количество новостных статей
+$search = isset($_GET["search"]) ? $_GET["search"] : false; // Переменная для поиска
+$cat = isset($_GET["new"]) ? $_GET["new"] : false;
+$sort = isset($_GET["sort"]) ? $_GET["sort"] : "DESC"; // По умолчанию сортировка по убыванию
 
-if($cat == false) {
-    $news = mysqli_query($con, "SELECT * FROM news ORDER BY publish_date $sort");
-} else {
-    $news = mysqli_query($con, "SELECT * FROM news WHERE category_id=$cat ORDER BY publish_date $sort");
-}
+$query_get_category = "SELECT * FROM categories";
+$categories = mysqli_fetch_all(mysqli_query($con, $query_get_category));
 
-$paginate_count = 3; // Количество новостных статей на странице
+$query_count_news = "SELECT * FROM news"; // Запрос для получения общего количества новостей
+$count_news = mysqli_num_rows(mysqli_query($con, $query_count_news)); // Получение общего количества новостей
+
+$paginate_count = 2; // Количество новостных статей на странице
 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Текущий номер страницы
-$offset = $page * $paginate_count - $paginate_count; // Вычислите смещение для SQL-запроса
+$offset = $page * $paginate_count - $paginate_count; // Вычисление смещения для SQL-запроса
 
 if ($cat == false) {
     $news = mysqli_query($con, "SELECT * FROM news ORDER BY publish_date $sort LIMIT $paginate_count OFFSET $offset");
@@ -24,7 +22,13 @@ if ($cat == false) {
     $news = mysqli_query($con, "SELECT * FROM news WHERE category_id=$cat ORDER BY publish_date $sort LIMIT $paginate_count OFFSET $offset");
 }
 
-?>   
+// Проверка на наличие поискового запроса и формирование SQL-запроса для поиска
+if($search){
+    $query_newcat = "SELECT * FROM news WHERE title LIKE '%$search%'";
+    $result = mysqli_query($con, $query_newcat);
+}
+
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,29 +59,38 @@ if ($cat == false) {
 <div class="main">
     <div class="last-news">
         <?php
-        if (mysqli_num_rows($news) == 0){
-            echo "<h3>Данных нет</h3>";
-        } else {
-            while($new = mysqli_fetch_assoc($news)){
+        if (isset($result) && mysqli_num_rows($result) > 0) { // Проверка на результаты поиска
+            while($new = mysqli_fetch_assoc($result)){
                 echo "<div class='card'>";
                 $new_id = $new["news_id"];
                 echo "<img src='images/news/" . $new['image'] . "'>";
-                    echo "<h2 class='c_title'>" . $new['title'] . "</h2>";
+                echo "<h2 class='c_title'>" . $new['title'] . "</h2>";
                 echo "<a href='oneNew.php?new=$new_id'>" . $new['news_id'] . "</a>";
                 echo "</div>";
             }
+        } else {
+            if (mysqli_num_rows($news) == 0){
+                echo "<h3>Данных нет</h3>";
+            } else {
+                while($new = mysqli_fetch_assoc($news)){
+                    echo "<div class='card'>";
+                    $new_id = $new["news_id"];
+                    echo "<img src='images/news/" . $new['image'] . "'>";
+                    echo "<h2 class='c_title'>" . $new['title'] . "</h2>";
+                    echo "<a href='oneNew.php?new=$new_id'>" . $new['news_id'] . "</a>";
+                    echo "</div>";
+                }
+            }
         }
         ?>
-        <div class="pagination">
-    <li>
-        <?php
-        for ($i = 1; $i <= ceil($count_news / $paginate_count); $i++) {
-            echo "<li><a href='?page=$i" . ($sort ? "&sort=$sort" : "") . ($cat ? "&new=$cat" : "") . "'>$i</a></li>";
-        }
-       ?>
-    </li> 
     </div>
-    </div>
+</div>
+<div class="pagination">
+    <?php
+    for ($i = 1; $i <= ceil($count_news / $paginate_count); $i++) {
+        echo "<li><a href='?page=$i" . ($sort ? "&sort=$sort" : "") . ($cat ? "&new=$cat" : "") . "'>$i</a></li>";
+    }
+    ?>
 </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
-<?php      
+<?php 
+include "header.php";     
 include "connect.php";
 $query_get_category = "select * from categories"; 
 $categories = mysqli_fetch_all(mysqli_query($con, $query_get_category));
@@ -6,7 +7,6 @@ $news = mysqli_query($con, "select * from news");
 $new_id = isset($_GET["new"]) ? $_GET["new"] :false;
 $query_getnew = "select news.*, categories.name from news inner join categories on news.category_id = categories.category_id where news_id = $new_id";
 $new_info = mysqli_fetch_assoc(mysqli_query($con, $query_getnew));
-include "header.php";
 $date = date("d-m-y  h:m:s", strtotime($new_info["publish_date"]));
 $month = [
     "01" => 'Январь',
@@ -29,8 +29,9 @@ function date_new($date_old){
 }
 $m_text = $month[substr($date, 3, 2)];
 $publish_date = substr($date, 0,2). " " . $m_text .  " " . substr($date, 6);
-$comments_result = mysqli_query($con, "SELECT comments.*, users.name FROM comments INNER JOIN users ON comments.user_id = users.user_id WHERE news_id = $new_id");
+$comments_result = mysqli_query($con, "SELECT comments.*, users.name FROM comments INNER JOIN users ON comments.user_id = users.user_id WHERE news_id = $new_id ORDER BY comment_date DESC");
 $comments = mysqli_fetch_all($comments_result);
+$comments_count = mysqli_num_rows($comments_result);
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +53,8 @@ $comments = mysqli_fetch_all($comments_result);
     echo "<i>". $publish_date ."</i>"; 
     echo "</div>" 
     ?> 
- <h3>Комментарии</h3>
+ <h3>Комментарии </h3>
+    <h3><img style="height: 30px;" src="images/free-icon-comment-2414210.png" alt=""><?= $comments_count ?></h3>
     <?php if ($username){?>
         <form action="comment-DB.php" method="post">
     <input type="hidden" name="id_new" value="<?= $new_id ?>">
@@ -63,7 +65,6 @@ $comments = mysqli_fetch_all($comments_result);
     </div>
     <button type="submit">Отправить</button>
 </form>
-
     <?php } ?>
     <?php if (mysqli_num_rows($comments_result)) {
         foreach ($comments as $comment){ ?> 

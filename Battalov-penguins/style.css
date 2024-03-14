@@ -60,7 +60,6 @@ font-family: "Lato", sans-serif;
     text-transform: uppercase;
 }
 form{
-    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -276,7 +275,7 @@ main{
 }
 .last-news img{
     padding: 20px;
-    width: 10%;
+    width: 25%;
     height: 50%;
 }
 .post_img{
