@@ -4,7 +4,6 @@
 
     include "../connect.php";
 
-
     $title = isset($_POST['Title'])?$_POST['Title']:false;
     $text = isset($_POST['text'])?$_POST['text']:false;
     $file = isset($_FILES['image']['tmp_name'])?$_FILES['image']:false;

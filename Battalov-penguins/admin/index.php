@@ -10,7 +10,6 @@ $id_new = isset($_GET["new"])?$_GET["new"]:false;
 if($id_new) $new_info = mysqli_fetch_assoc(mysqli_query($con, "select * from news where news_id=$id_new"));
 
 
-
 ?>
 <!DOCTYPE html> 
     <html lang="en"> 
@@ -43,11 +42,8 @@ if($id_new) $new_info = mysqli_fetch_assoc(mysqli_query($con, "select * from new
     <div class="containers2">
     <h2 style="text-align:center;"><?=$id_new?"Редактирование новости №$id_new":"Создание новости";?></h2>
     <form style="padding-top: 0;" action='<?=$id_new?"update":"create";?>NewValid.php' method="post" enctype="multipart/form-data">  
-    
 <?= "<div class='post_img' style='background-image:url(../images/news/" . (isset($new_info['image']) ? $new_info['image'] : '') . ")'></div>";?>      
-
 <?= $id_new ?  "<input type='hidden' name='id' value='$id_new'>":"";?>      
-
     <label  for="category">Выберите категорию:</label>  
             <select id="category" name="category">  
                 <?php 
@@ -57,12 +53,9 @@ if($id_new) $new_info = mysqli_fetch_assoc(mysqli_query($con, "select * from new
                     $is_sel = ($id_cat==$new_info['category_id'])? "selected":'';
                     echo "<option value='$id_cat'". ($id_new ? $is_sel : ''). ">$name</option>";
                     } 
-                
-            
                 ?>
             </select>
             <br>
-
             <label for="Title">Заголовок:</label>  
             <input type="text" id="Title" name="Title" class="submit-button-img" value='<?=$id_new?$new_info["title"]:"";?>'>
             <label for="text" >Текст:</label>

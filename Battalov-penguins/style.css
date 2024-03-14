@@ -273,11 +273,10 @@ main{
 } 
 .last-news{
     text-align: center;
-    display: flex;
 }
 .last-news img{
     padding: 20px;
-    width: 75%;
+    width: 10%;
     height: 50%;
 }
 .post_img{
@@ -303,9 +302,28 @@ main{
 }
 .containers1 img{
     width: 70%;
-    height: 30vh;
+    height: 50vh;
 }
 a{
     text-decoration: none;
     color: black;
+}
+.forms{
+    padding-top: 0;
+}
+.pagination{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    color: #FFF;
+    color: var(--Base-White, #FFF);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    align-items: center;
+    list-style-type: none;
 }
