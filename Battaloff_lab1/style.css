@@ -1,0 +1,102 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-div1 {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-direction: column;
+}
+.header-div2 {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    flex-direction: column;
+}
+.header-div2 input {
+    margin: 5px;
+}
+.body {
+    background-color: rgb(237,242,245);
+    display: flex;
+    align-items: baseline;
+    margin: 0 auto;
+    justify-content: center;
+    flex-direction: column;
+    width: 55%;
+}
+.regs{
+    border-radius: 50px;
+    padding: 5px 15px 5px 15px;
+    color: cornflowerblue;
+    background: aliceblue;
+}
+.submit {
+    margin-top: 2%;
+    width: 35%;
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    gap: 15%;
+}
+.task-text {
+    padding: 5%;
+}
+.date {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50%;
+}
+.libro{
+    border-radius: 25px;
+    padding: 5px 15px 5px 15px;
+    background: black;
+    color: white;
+}
+.inputss{
+    border-radius: 25px;
+    padding: 5px 15px 5px 15px;
+    background: black;
+    color:white;
+}
+body{
+    background: #d7e0e6;
+}
+.regist{
+    border-radius: 50px;
+    padding: 5px 15px 5px 15px;
+    background: aliceblue;
+}
+.h1s{
+    display: flex; 
+    justify-content: center;
+}
+.libro{
+    border-radius: 25px;
+    padding: 5px 15px 5px 15px;
+    background: black;
+    color: white;
+}
+.inputss{
+    border-radius: 25px;
+    padding: 5px 15px 5px 15px;
+    background: black;
+    color:white;
+}
+body{
+    background: #d7e0e6;
+}
+.regist{
+    border-radius: 50px;
+    padding: 5px 15px 5px 15px;
+    background: aliceblue;
+}
+.h1s{
+    display: flex; 
+    justify-content: center;
+}
