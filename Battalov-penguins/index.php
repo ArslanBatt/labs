@@ -1,33 +1,27 @@
 <?php
 include "connect.php";
 include "header.php";
-
 $search = isset($_GET["search"]) ? $_GET["search"] : false; // Переменная для поиска
 $cat = isset($_GET["new"]) ? $_GET["new"] : false;
 $sort = isset($_GET["sort"]) ? $_GET["sort"] : "DESC"; // По умолчанию сортировка по убыванию
-
 $query_get_category = "SELECT * FROM categories";
 $categories = mysqli_fetch_all(mysqli_query($con, $query_get_category));
-
 $query_count_news = "SELECT * FROM news"; // Запрос для получения общего количества новостей
 $count_news = mysqli_num_rows(mysqli_query($con, $query_count_news)); // Получение общего количества новостей
-
 $paginate_count = 2; // Количество новостных статей на странице
 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Текущий номер страницы
 $offset = $page * $paginate_count - $paginate_count; // Вычисление смещения для SQL-запроса
-
 if ($cat == false) {
     $news = mysqli_query($con, "SELECT * FROM news ORDER BY publish_date $sort LIMIT $paginate_count OFFSET $offset");
 } else {
     $news = mysqli_query($con, "SELECT * FROM news WHERE category_id=$cat ORDER BY publish_date $sort LIMIT $paginate_count OFFSET $offset");
 }
-
 // Проверка на наличие поискового запроса и формирование SQL-запроса для поиска
+
 if($search){
     $query_newcat = "SELECT * FROM news WHERE title LIKE '%$search%'";
     $result = mysqli_query($con, $query_newcat);
 }
-
 ?>
 <html lang="en">
 <head>

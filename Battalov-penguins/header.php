@@ -38,8 +38,8 @@ $news = mysqli_query($con, "select * from news");
                     <h2>Разделы</h2>   
                 </div>
                 <form id="search-form" action="/" method="get"> 
-                            <input class="poisk" type="search" id='search' name="search" placeholder="Поиск"> 
-                        </form>
+                    <input class="poisk" type="search" id='search' name="search" placeholder="Поиск"> 
+                </form>
                 <div class="vhod">
                 <?php if ($username) { ?>
                     <a href="/page.php" class="pers-name"><?= $username ?></a>
@@ -72,9 +72,9 @@ $news = mysqli_query($con, "select * from news");
     </div> 
 </main>
 <script>  
-        $('#search-form').on ('keyup', function (e) {  
-            <?php   
-                $searching = isset($_GET['search'])? $_GET['search']: false;   
-                ?>  
-        });
-    </script>
+    $('#search-form').on ('keyup', function (e) {  
+        <?php   
+            $searching = isset($_GET['search'])? $_GET['search']: false;   
+            ?>  
+    });
+</script>
